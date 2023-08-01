@@ -204,7 +204,7 @@ function User({navigation, route}: Props): JSX.Element {
         </ScrollView>
         <TouchableOpacity
           activeOpacity={0.8}
-          style={{marginVertical: ms(12)}}
+          style={{marginBottom: ms(30)}}
           onPress={() => {
             setShowModal(true);
           }}>
@@ -266,7 +266,7 @@ function User({navigation, route}: Props): JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.white,
   },
   heading: {
     width: '100%',
@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
   body: {
     backgroundColor: colors.white,
     width: '100%',
-    height: hp(72),
+    height: '45%',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     paddingTop: ms(20),

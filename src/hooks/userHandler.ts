@@ -13,6 +13,7 @@ const dispatchAPI = dispatch;
 
 interface EditProps {
   objIndex: number;
+  navigation: any;
   body: {
     first_name: string;
     last_name: string;
@@ -23,10 +24,10 @@ interface EditProps {
   };
 }
 
-export const handleEditUser: any = (props: EditProps) => {
+export const handleEditUser: any = async (props: EditProps) => {
   const {body, objIndex, user} = props;
+  await dispatchAPI(EditUserById({id: user.id, body}));
   dispatchAPI(editUsers({objIndex: objIndex, body}));
-  dispatchAPI(EditUserById({id: user.id, body}));
 };
 
 interface DeleteProps {

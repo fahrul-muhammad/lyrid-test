@@ -23,9 +23,9 @@ import {selectUsers} from '../../redux/store';
 import {useSelector} from '../../hooks/dispatch';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {handleAddNewUser} from '../../hooks/userHandler';
+import {getRandomIntInclusive} from '../../utils/randomNumber';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'AddUser'>;
-let uid = new Date().getTime().toString(36);
 
 function AddUser({navigation}: Props) {
   const [body, setBody] = useState({
@@ -33,7 +33,7 @@ function AddUser({navigation}: Props) {
     last_name: '',
     email: '',
     avatar: '',
-    id: uid,
+    id: getRandomIntInclusive(1, 100),
   });
   const {isLoading} = useSelector(selectUsers);
 

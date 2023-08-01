@@ -7,6 +7,7 @@ import {
 } from 'react-native-responsive-screen';
 import {moderateScale as ms} from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {modalHandler} from '../../hooks/modalHandler';
 
 interface Props {
   bodyText: string;
@@ -16,14 +17,16 @@ interface Props {
 
 export const ModalComponents = (props: Props) => {
   const {bodyText, modalVisible, footer} = props;
+  const {setShowModal} = modalHandler();
   return (
     <View style={styles.container}>
       <Modal transparent={true} animationType="fade" visible={modalVisible}>
         <View style={styles.modalContainer}>
           <View style={styles.modal}>
             <View style={styles.modalHeader}>
-              {/* <Text style={styles.title}>Are you sure want to delete ?</Text> */}
-              <TouchableOpacity activeOpacity={0.8}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => setShowModal(false)}>
                 <Icon name="close" style={styles.closeBtn} />
               </TouchableOpacity>
             </View>

@@ -22,8 +22,8 @@ import {userHandler} from '../../hooks/userData';
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 function Home({navigation}: Props): JSX.Element {
-  const {data, isLoading}: any = userHandler();
-
+  const {data, isLoading}: any = userHandler(navigation);
+  console.log('IS LOADING : ', isLoading);
   return (
     <>
       {isLoading ? (
@@ -34,51 +34,51 @@ function Home({navigation}: Props): JSX.Element {
             style={{
               backgroundColor: colors.white,
             }}
-            showsHorizontalScrollIndicator={false}>
+            showsVerticalScrollIndicator={false}>
             <View style={styles.searchWrapper}>
               <Text style={styles.blueTitle}>Contact</Text>
-              <Text style={styles.subTitle}>Welcom To myContact.</Text>
+              <SearchInput />
             </View>
             <View style={styles.contactWrapper}>
               <Text style={styles.blackTitle}>Online</Text>
-              <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}>
-                {data?.map((val: any, idx: number) => (
-                  <View
-                    style={{
-                      marginRight: ms(5),
-                    }}>
-                    <Avatar key={idx} isOnline={true} image={val?.avatar} />
-                    <Text style={styles.contactName}>{val?.first_name}</Text>
-                  </View>
-                ))}
-              </ScrollView>
+              <View>
+                <ScrollView
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}>
+                  {data?.map((val: any, idx: number) => (
+                    <View
+                      style={{
+                        marginRight: ms(5),
+                      }}
+                      key={idx}>
+                      <Avatar isOnline={true} image={val?.avatar} />
+                      <Text style={styles.contactName}>{val?.first_name}</Text>
+                    </View>
+                  ))}
+                </ScrollView>
+              </View>
               <View style={styles.myContactWrapper}>
                 <Text
                   style={
                     styles.blackTitle
                   }>{`My Contact(${data?.length})`}</Text>
-                <FlatList
-                  data={data}
-                  scrollEnabled={true}
-                  renderItem={({index, item}) => {
-                    return (
-                      <>
-                        <ContactCard
-                          onPress={() => {
-                            let data = item;
-                            navigation.navigate('User', data);
-                          }}
-                          key={index}
-                          email={item?.email}
-                          image={item?.avatar}
-                          name={`${item?.first_name} ${item?.last_name}`}
-                        />
-                      </>
-                    );
-                  }}
-                />
+
+                {data?.map((item: any, index: number) => {
+                  return (
+                    <>
+                      <ContactCard
+                        onPress={() => {
+                          let data = item;
+                          navigation.navigate('User', data);
+                        }}
+                        key={index}
+                        email={item?.email}
+                        image={item?.avatar}
+                        name={`${item?.first_name} ${item?.last_name}`}
+                      />
+                    </>
+                  );
+                })}
               </View>
             </View>
           </ScrollView>
